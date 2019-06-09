@@ -76,3 +76,6 @@ if __name__ == '__main__':
     octets = bytes(v1)
     assert abs(v1) == 5.0
     assert bool(v1) is True and bool(Vector2d(0, 0)) is False
+
+    assert v1.__dict__ == {'_Vector2d__y': 4.0, '_Vector2d__x': 3.0}
+    assert v1._Vector2d__x == 3.0
