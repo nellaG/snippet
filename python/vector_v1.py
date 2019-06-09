@@ -1,8 +1,10 @@
 ''' vector_v1 '''
 
 from array import array
+import functools
 import math
 import numbers
+import operator
 import reprlib
 
 
@@ -29,7 +31,8 @@ class Vector:
                 bytes(self._components))
 
     def __eq__(self, other):
-        return tuple(self) == tuple(other)
+        return len(self) == len(other) and \
+            all(a == b for a, b in zip(self, other))
 
     def __abs__(self):
         return math.sqrt(sum(x * x for x in self))
@@ -83,5 +86,6 @@ class Vector:
                 raise AttributeError(msg)
         super().__setattr__(name, value)
 
-
-
+    def __hash__(self):
+        hashes = map(hash, self._components)
+        return functools.reduce(operator.xor, hashes, 0)
