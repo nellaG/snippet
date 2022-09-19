@@ -15,6 +15,11 @@ func main() {
 		fmt.Fprintf(w, "hello world ~ %s\n", r.URL.Path)
 	})
 
+	getBookPage(r)
+	http.ListenAndServe(":80", r)
+}
+
+func getBookPage(r *mux.Router) {
 	r.HandleFunc("/books/{title}/page/{page}", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		title := vars["title"]
@@ -22,6 +27,4 @@ func main() {
 		fmt.Fprintf(w, "You've requested the book: %s on page %s\n", title, page)
 
 	})
-
-	http.ListenAndServe(":80", r)
 }
